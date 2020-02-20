@@ -18,11 +18,18 @@ const Users = {
       });
     })
   },
+  getUserAuth: function(User) {
+    return new Promise((resolve) => {
+      db.query("select * from user where email=? and password=?", [User.email, User.password], function (err, result) {
+        if (err) throw err;
+        console.log('result[0]', JSON.stringify(result[0]));
+        resolve(JSON.parse(JSON.stringify(result)));
+      });
+    })
+  },
   addUser: function(Users, callback) {
     var data = [Users.firstname, Users.lastname, Users.role, Users.password, Users.image, Users.email]
-
     var hashedPassword = bcrypt.hashSync(Users.password, 8);
-    console.log('hashedPassword', hashedPassword);
 
     return db.query(
       `Insert into user(firstname, lastname, role, hashedPassword, image, email) values(?, ?, ?, ?, ?, ?)`, data, callback);

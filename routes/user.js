@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/Users');
+var bcrypt = require('bcryptjs');
+var config = require('../config/security.js');
+var jwt = require('jsonwebtoken');
 
 /*
  * [GET] Get all contacts
@@ -22,10 +25,35 @@ router.post('/',function(req, res, next) {
     if(err) {
       res.json(err);
     } else {
-      //generation du token
       res.json(rows);
     }
   });
+});
+
+/*
+ * [POST] Authentication of user
+ *
+ */
+router.get('/auth',function(req, res, next) {
+  User.getUserAuth(req.body).then((user) => {
+    if(user) {
+      if(bcrypt.compareSync(user[0].password, bcrypt.hashSync(req.body.password))) {
+        // Create token for user connect
+        const token = jwt.sign({
+          id: user[0].id,
+          firstname: user[0].firstname
+          // if (err) throw err;
+        }, config.jwtSecret, { expiresIn: '24h'})
+        console.log('token', token);
+        res.json({ token })
+      } else {
+        res.status(401).json({ errors: { form: 'Invalid Credentials' } })
+      }
+      // res.json(err);
+    } else {
+      res.json(rows);
+    }
+  })
 });
 
 /*
