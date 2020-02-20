@@ -10,7 +10,7 @@ var jwt = require('jsonwebtoken');
  *
  */
 router.get('/', function(req, res) {
-  console.log('token', req.headers['x-access-token']);
+  // console.log('token', req.headers['x-access-token']);
   User.getAllUsers().then((response) => {
     res.json(response);
   })
@@ -44,7 +44,6 @@ router.get('/auth',function(req, res, next) {
           firstname: user[0].firstname
           // if (err) throw err;
         }, config.jwtSecret, { expiresIn: '24h'})
-        console.log('token', token);
         res.json({ token })
       } else {
         res.status(401).json({ errors: { form: 'Invalid Credentials' } })
@@ -85,7 +84,6 @@ router.delete('/:id',function(req, res, next) {
  *
  */
 router.post('/:id',function(req, res, next) {
-  console.log('herer');
   User.updateUser(req.params.id, req.body, function(err, rows) {
     if(err) {
       res.json(err);
