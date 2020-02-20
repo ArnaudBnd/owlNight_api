@@ -19,15 +19,15 @@ const Partner = {
     })
   },
   addPartner: function(Partner, callback) {
-    var data = [Partner.name, Partner.description, Partner.image]
+    var data = [Partner.name, Partner.image]
     return db.query(
-      `Insert into partner(name, description, image) values(?, ?, ?)`, data, callback);
+      `Insert into partner(name, image) values(?, ?)`, data, callback);
   },
   deletePartner: function(id, callback) {
     return db.query("delete from partner where id=?", [id], callback);
   },
   updatePartner: function(id, Partner, callback) {
-    return db.query("update partner set name=?, description=? where id=?", [Partner.name, Partner.description, id], callback);
+    return db.query("update partner set name=?, where id=?", [Partner.name, id], callback);
   }
 };
 

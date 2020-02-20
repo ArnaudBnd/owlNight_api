@@ -20,15 +20,15 @@ const Event = {
   },
   addEvent: function(Event, callback) {
     console.log('event', Event);
-    var data = [Event.titre, Event.subTitre, Event.lieu, Event.tarif, Event.image]
+    var data = [Event.name, Event.subTitre, Event.emplacement, Event.price, Event.description, Event.image]
     return db.query(
-      `Insert into event(titre, subTitre, lieu, tarif, image) values(?, ?, ?, ?, ?)`, data, callback);
+      `Insert into event(name, subTitre, emplacement, price, description, image) values(?, ?, ?, ?, ?, ?)`, data, callback);
   },
   deleteEvent: function(id, callback) {
     return db.query("delete from event where id=?", [id], callback);
   },
   updateEvent: function(id, Event, callback) {
-    return db.query("update event set titre=?, subTitre=? where id=?", [Event.titre, Event.subTitre, id], callback);
+    return db.query("update event set name=?, subTitre=? where id=?", [Event.titre, Event.subTitre, id], callback);
   }
 };
 
