@@ -19,15 +19,15 @@ const Association = {
     })
   },
   addAssociation: function(Association, callback) {
-    var data = [Association.name, Association.image, Association.lien, Association.description, Association.subTitre]
+    var data = [Association.name, Association.image]
     return db.query(
-      `Insert into association(name, image, lien, description, subTitre) values(?, ?, ?, ?, ?)`, data, callback);
+      `Insert into association(name, image) values(?, ?)`, data, callback);
   },
   deleteAssociation: function(id, callback) {
     return db.query("delete from association where id=?", [id], callback);
   },
   updateAssociation: function(id, Association, callback) {
-    return db.query("update association set name=?, description=? where id=?", [Association.name, Association.description, id], callback);
+    return db.query("update association set name=?, description=? where id=?", [Association.name, id], callback);
   }
 };
 
