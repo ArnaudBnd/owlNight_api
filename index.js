@@ -8,6 +8,7 @@ var users = require('./routes/user.js');
 var partners = require('./routes/partner.js');
 var events = require('./routes/event.js');
 var associations = require('./routes/association.js');
+var surveys = require('./routes/survey.js');
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -18,6 +19,7 @@ app.use('/user', users);
 app.use('/partner', partners);
 app.use('/event', events);
 app.use('/association', associations);
+app.use('/survey', surveys);
 
 // set the app to listen on the port
 app.listen(3000, () => {
