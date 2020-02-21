@@ -51,18 +51,4 @@ router.delete('/:id',function(req, res, next) {
   });
 });
 
-/*
- * [PUT] update Survey by id
- *
- */
-router.post('/:id',function(req, res, next) {
-  Survey.updateSurvey(req.params.id, req.body, function(err, rows) {
-    if(err) {
-      res.json(err);
-    } else {
-      res.json(rows);
-    }
-  });
-});
-
 module.exports = router;
